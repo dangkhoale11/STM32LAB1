@@ -91,8 +91,22 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  GPIO_TypeDef *LED_PORTS[12] = { LED_1_GPIO_Port, LED_2_GPIO_Port,
+  			LED_3_GPIO_Port, LED_4_GPIO_Port, LED_5_GPIO_Port, LED_6_GPIO_Port,
+  			LED_7_GPIO_Port, LED_8_GPIO_Port, LED_9_GPIO_Port, LED_10_GPIO_Port,
+  			LED_11_GPIO_Port, LED_12_GPIO_Port };
+  	uint16_t LED_PINS[12] = { LED_1_Pin, LED_2_Pin, LED_3_Pin, LED_4_Pin,
+  			LED_5_Pin, LED_6_Pin, LED_7_Pin, LED_8_Pin, LED_9_Pin, LED_10_Pin,
+  			LED_11_Pin, LED_12_Pin };
+  	int cnt = 0;
+  	while (1) {
+  		if (cnt >= 12) {
+  			cnt = 0;
+  		}
+  		HAL_GPIO_WritePin(LED_PORTS[cnt], LED_PINS[cnt], 1);
+  		HAL_Delay(1000);
+  		HAL_GPIO_WritePin(LED_PORTS[cnt], LED_PINS[cnt], 0);
+  		cnt++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -148,14 +162,20 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
+                          |LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin
+                          |LED_9_Pin|LED_10_Pin|LED_11_Pin|LED_12_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : LED_RED_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin;
+  /*Configure GPIO pins : LED_1_Pin LED_2_Pin LED_3_Pin LED_4_Pin
+                           LED_5_Pin LED_6_Pin LED_7_Pin LED_8_Pin
+                           LED_9_Pin LED_10_Pin LED_11_Pin LED_12_Pin */
+  GPIO_InitStruct.Pin = LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
+                          |LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin
+                          |LED_9_Pin|LED_10_Pin|LED_11_Pin|LED_12_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
