@@ -91,31 +91,26 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int cnt = 10;
-  	void set_LEDS(GPIO_PinState redstate, GPIO_PinState yellowstate,
-  			GPIO_PinState greenstate) {
-  		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, redstate);
-  		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, yellowstate);
-  		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, greenstate);
-  	}
-  	while (1) {
-  		switch (cnt) {
-  		case 10:
-  			set_LEDS(1, 1, 0);
-  			break;
-  		case 7:
-  			set_LEDS(1, 0, 1);
-  			break;
-  		case 5:
-  			set_LEDS(0, 1, 1);
-  			break;
-  		case 1:
-  			cnt = 11;
-  		default:
-  			break;
-  		}
-  		cnt--;
-  		HAL_Delay(1000);
+  int cnt = 0;
+  while (1)
+  {
+
+	 switch (cnt) {
+	  	case 4:
+	  			cnt = 0;
+	  	case 0:
+	  			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
+	  			HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
+	  			break;
+	  	case 2:
+	  			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
+	  			HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, RESET);
+	  			break;
+	  	default:
+	  			break;
+	  }
+	 cnt++;
+	 HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
