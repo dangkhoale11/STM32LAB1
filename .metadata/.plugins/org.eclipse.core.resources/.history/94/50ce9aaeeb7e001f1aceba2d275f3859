@@ -110,27 +110,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int cnt_hour = 0;
-  	int cnt_min = 0;
-  	int cnt_sec = 0;
+  int cnt = 0;
   	while (1) {
-  		setNumberOnClock(cnt_hour);
-  		setNumberOnClock(cnt_min / 5);
-  		setNumberOnClock(cnt_sec / 5);
-  		HAL_Delay(10);
-  		cnt_sec++;
-  		if (cnt_sec == 60) {
-  			cnt_sec = 0;
-  			cnt_min++;
+  		if (cnt >= 12) {
+  		  cnt = 0;
   		}
-  		if (cnt_min == 60) {
-  			cnt_min = 0;
-  			cnt_hour++;
-  		}
-  		if (cnt_hour == 12) {
-  			cnt_hour = 0;
-  		}
-  		clearAllClock();
+  		HAL_GPIO_WritePin(LED_PORTS[cnt], LED_PINS[cnt], 1);
+  		HAL_Delay(1000);
+  	    HAL_GPIO_WritePin(LED_PORTS[cnt], LED_PINS[cnt], 0);
+  		cnt++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
