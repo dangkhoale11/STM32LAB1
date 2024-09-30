@@ -71,9 +71,6 @@ void clearAllClock() {
 void setNumberOnClock(int num) {
 	HAL_GPIO_WritePin(LED_PORTS[num], LED_PINS[num], 1);
 }
-void clearNumberOnClock(int num) {
-	HAL_GPIO_WritePin(LED_PORTS[num], LED_PINS[num], 0);
-}
 /* USER CODE END 0 */
 
 /**
